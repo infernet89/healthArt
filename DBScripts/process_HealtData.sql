@@ -49,4 +49,12 @@ CLOSE curHealthData;
 	END LOOP;
 
 CLOSE curSleepData;
+
+UPDATE health_Sleep
+SET durationMinutes=-durationMinutes,
+start=(@temp:=start), 
+start = end, 
+end = @temp
+WHERE start > end
+;
 END
