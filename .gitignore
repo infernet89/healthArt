@@ -1,5 +1,7 @@
 # custom files with sensitive information
 DBaccess.py
+health_detail_data.json
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

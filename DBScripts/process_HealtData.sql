@@ -7,13 +7,14 @@ BEGIN
 	DECLARE v_kind VARCHAR(32) DEFAULT NULL;
 
 	DECLARE prev_kind VARCHAR(32) DEFAULT NULL;
+	DECLARE prev_end DATETIME DEFAULT NULL;
 	DECLARE sleep_start DATETIME DEFAULT NULL;
 	DECLARE sleep_end DATETIME DEFAULT NULL;
 	
 	DECLARE curHealthData CURSOR FOR
 		SELECT id,start,CAST(value AS SIGNED) as value FROM health_rawData where processed=0 AND `key` like '%HEART%';
 	DECLARE curSleepData CURSOR FOR
-		SELECT id,start,end,REPLACE(`key`,'PROFESSIONAL_SLEEP_','') as kind FROM health_rawData where processed=0 and `key` like '%sleep%';
+		SELECT id,start,end,REPLACE(`key`,'PROFESSIONAL_SLEEP_','') as kind FROM health_rawData where processed=0 and `key` like '%sleep%' ORDER BY start,end;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE;
 
 	OPEN curHealthData;
@@ -39,13 +40,15 @@ CLOSE curHealthData;
 			LEAVE curSleepData_loop;
 		END IF;
 		UPDATE health_rawData SET processed=1 WHERE id=v_id;
-		IF prev_kind IS NOT NULL AND v_kind<>prev_kind THEN
+		/*IF prev_kind IS NOT NULL AND v_kind<>prev_kind THEN*/
+		IF TIMESTAMPDIFF(MINUTE,prev_end,v_end)>1 THEN
 			INSERT IGNORE INTO health_Sleep(start,end,type,durationMinutes) VALUES (sleep_start,sleep_end,prev_kind,TIMESTAMPDIFF(MINUTE,sleep_start,sleep_end));
 			SET sleep_start=v_start;
 		ELSE
 			SET sleep_end=v_end;
 		END IF;
 		SET prev_kind=v_kind;
+		SET prev_end=v_end;
 	END LOOP;
 
 CLOSE curSleepData;
