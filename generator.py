@@ -62,7 +62,7 @@ while curDate < endDate:
 	# sleeping OR awake (0 - awake, 1 - that value, * - last found values)
 	while sIndex<len(sleepData)-1 and sleepData[sIndex][1] <= curDate:
 		sIndex+=1
-		print("	",sleepData[sIndex])
+		#print("	",sleepData[sIndex])
 		isSleeping=0
 	if sleepData[sIndex][0] <= curDate <= sleepData[sIndex][1]:
 		sleepLast=sleepData[sIndex][2]
