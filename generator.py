@@ -92,7 +92,7 @@ while curDate < endDate:
 		energy=1.4
 	if energy<0.2:
 		energy=0.2
-	print("curDate: ",curDate,"isSleeping: ",isSleeping,"BPM: ",BPM,"energy",energy,"x",x,"y",y)
+	#print("curDate: ",curDate,"isSleeping: ",isSleeping,"BPM: ",BPM,"energy",energy,"x",x,"y",y)
 	#fill the pixels of the image
 	if isSleeping:
 		pixel[y][x]=[min(255,round(el * energy)) for el in sleepColors[BPM]]
