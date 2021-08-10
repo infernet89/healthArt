@@ -9,7 +9,7 @@ from colour import Color
 
 startPeriod="2020-05-26"#"2020-05-15"
 endPeriod="2021-05-26"#"2021-06-07"
-sampleMinutes=5
+sampleMinutes=1
 samplePercentile=99
 
 curDate=datetime.strptime(startPeriod, '%Y-%m-%d')
@@ -19,7 +19,7 @@ dailySamples=math.ceil(24*60/sampleMinutes)
 
 hearthData=db.executeSql("SELECT time,bpm FROM health_Heart WHERE time BETWEEN '"+startPeriod+"' and '"+endPeriod+"' order by time")
 sleepData=db.executeSql("SELECT start,end,type,durationMinutes FROM health_Sleep WHERE start BETWEEN '"+startPeriod+"' and '"+endPeriod+"' and durationMinutes between 1 and 400 order by start,end")
-#WAKE NOON SHALLOW DREAM DEEP (NOON è pisolino. Tutto il resto è sonnno. La veglia c'è quando il periodo non è compreso fra start e end. O quando c'è WAKE.)
+#WAKE NOON SHALLOW DREAM DEEP (NOON è pisolino. Tutto il resto è sonno. La veglia c'è quando il periodo non è compreso fra start e end. O quando c'è WAKE.)
 
 hmin=min(hearthData, key = lambda t: t[1])[1]
 hmax=max(hearthData, key = lambda t: t[1])[1]
@@ -105,7 +105,7 @@ while curDate < endDate:
 	curDate= curDate + timedelta(minutes = sampleMinutes)
 #save the result
 img = Image.fromarray(pixel)
-img.show()                      # View in default viewer
+#img.show()                      # View in default viewer
 img.save('test.png')
 #for el in hearthData:
 #	print("bpm: ",el[1])
