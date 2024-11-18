@@ -3,7 +3,7 @@ import datetime
 import json 
 
 print ("Reading file..")
-with open('health_detail_data.json', 'r') as file:
+with open('health detail data.json', 'r') as file:
 	content = file.read()
 #content = Path('health_detail_data.json').read_text()
 # print ("File content: ",content)
@@ -22,7 +22,7 @@ for el in data:
 	v_type=el['type']
 	points=el['samplePoints']
 	for subel in points:
-		unit=subel['unit']
+		unit=subel.get('unit', "-1")
 		startTime=subel['startTime']
 		start=datetime.datetime.fromtimestamp(startTime/1000).strftime('%Y-%m-%d %H:%M:%S')
 		endTime=subel['endTime']
@@ -37,6 +37,5 @@ for el in data:
 		# print(query);
 		db.executeSql(query)
 		dataQuery=""
-	# executeSql("INSERT INTO `temperatura` (temperature,normalized_timestamp) VALUES ('"+str(temperature)+"',DATE_ADD(CURRENT_TIMESTAMP, interval -SECOND(CURRENT_TIMESTAMP) SECOND))")
 
 print("C'erano ",i," elementi.")
