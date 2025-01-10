@@ -1,6 +1,8 @@
 # custom files with sensitive information
 DBaccess.py
 health_detail_data.json
+RAW/
+env/
 
 
 # Byte-compiled / optimized / DLL files
