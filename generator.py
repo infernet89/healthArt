@@ -7,8 +7,8 @@ import statistics
 from PIL import Image
 from colour import Color
 
-startPeriod="2020-05-16"#"2020-05-15"
-endPeriod="2022-08-26"#"2021-06-07"
+startPeriod="2024-08-01"#"2020-05-15"
+endPeriod="2024-12-31"#"2021-06-07"
 sampleMinutes=1
 samplePercentile=99
 

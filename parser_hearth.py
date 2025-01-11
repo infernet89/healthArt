@@ -17,7 +17,6 @@ for match in matches:
 print("Inserting more or less ",len(data), "elements...")
 bufferSize=20000
 i=0
-n_points=0
 baseQuery="INSERT INTO `health_rawData` (`type`, `unit`, `startTime`, `start`, `endTime`, `end`, `value`, `key`) VALUES "
 dataQuery=""
 for el in data:
